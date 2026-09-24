@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — MediQueue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">MQ</span>
+      MediQueue
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="book-appointment.html">Book Appointment</a></li>
+      <li><a href="my-token.html">My Token</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="settings.html" class="nav-icon-btn active" aria-label="Settings" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      </a>
+      <a href="login.html" class="btn btn-primary btn-sm">Login</a>
+    </div>
+  </div>
+</header>
+
+<div class="app-header">
+  <div class="container">
+    <h1>Account Settings</h1>
+    <p>Manage your account profile, notification preferences, and queue alerts.</p>
+  </div>
+</div>
+
+<div class="app-body">
+  <div class="container two-col">
+    <div>
+      <div class="panel-card">
+        <h2>Profile Details</h2>
+        <form id="settings-form">
+          <div class="field">
+            <label for="settings-name">Full name</label>
+            <input type="text" id="settings-name" value="Aditi Sharma" required>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="settings-email">Email address</label>
+              <input type="email" id="settings-email" value="aditi@example.com" required>
+            </div>
+            <div class="field">
+              <label for="settings-phone">Phone number</label>
+              <input type="tel" id="settings-phone" value="98765 43210" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+
+      <div class="panel-card">
+        <h2>Notification Preferences</h2>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <label class="checkbox-row" style="font-size:0.92rem;">
+            <input type="checkbox" checked> Send SMS alert when my token is 5 spots away
+          </label>
+          <label class="checkbox-row" style="font-size:0.92rem;">
+            <input type="checkbox" checked> Email appointment confirmation and doctor receipt
+          </label>
+          <label class="checkbox-row" style="font-size:0.92rem;">
+            <input type="checkbox"> WhatsApp queue tracking live link
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel-card">
+        <h2>Quick Navigation</h2>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <a href="dashboard.html" class="btn btn-primary btn-block">Back to Dashboard</a>
+          <a href="book-appointment.html" class="btn btn-outline btn-block">Book New Appointment</a>
+          <a href="my-token.html" class="btn btn-outline btn-block">View My Tokens</a>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <h2>Session Management</h2>
+        <p style="font-size:0.88rem; margin-bottom:16px;">Sign out of this browser session or clear local demonstration queue data.</p>
+        <button type="button" id="btn-clear-session" class="btn btn-danger btn-block">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 MediQueue. All rights reserved.</span>
+      <span><a href="index.html" class="link-teal">Back to home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const session = mqGetSession();
+    if(session) {
+      if(session.name) document.getElementById('settings-name').value = session.name;
+      if(session.email) document.getElementById('settings-email').value = session.email;
+      if(session.phone) document.getElementById('settings-phone').value = session.phone;
+    }
+    document.getElementById('settings-form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const updated = {
+        role: session ? session.role : 'patient',
+        name: document.getElementById('settings-name').value.trim(),
+        email: document.getElementById('settings-email').value.trim(),
+        phone: document.getElementById('settings-phone').value.trim()
+      };
+      mqSetSession(updated);
+      alert('Settings updated successfully!');
+    });
+    document.getElementById('btn-clear-session')?.addEventListener('click', function() {
+      mqClearSession();
+      window.location.href = 'login.html';
+    });
+  });
+</script>
+</body>
+</html>
